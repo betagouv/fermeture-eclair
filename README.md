@@ -12,8 +12,8 @@ Ce projet contient pour le moment un seul webhook, appelé par GitGuardian lorsq
 Cloner ce repo
 
 ```bash
-git clone https://github.com/betagouv/git-guardian-webhook.git
-cd git-guardian-webhook
+git clone https://github.com/betagouv/git-guardian-alert-handler.git
+cd git-guardian-alert-handler
 npm i
 cp .env.example .env
 ```
