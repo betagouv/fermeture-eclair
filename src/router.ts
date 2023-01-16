@@ -14,10 +14,9 @@ router.post(
     '/handle-incident',
     buildController(async (params) => {
         console.log(params);
-        await githubHandler.closeRepository({
+        return githubHandler.closeRepository({
             owner: 'BenoitSerrano',
             repository: 'chronodose-finder',
         });
-        return { kind: 'success', data: 'Le repository a bien été fermé' };
     }),
 );
