@@ -1,6 +1,8 @@
 import { Request, Response } from 'express';
 import httpStatus from 'http-status';
 import Joi from 'joi';
+import { config } from '../config';
+import { signatureVerifier } from './signatureVerifier';
 
 export { buildController };
 
@@ -49,6 +51,18 @@ function buildController<bodyT>(
 }
 
 async function checkAuthentication(req: Request) {
-    console.log(req.headers);
-    // Vérifie que la signature vient bien de GitGuardian
+    const signature = req.headers['gitguardian-signature'] as string;
+    const timestamp = req.headers['timestamp'] as string;
+    if (
+        signatureVerifier.check(
+            signature,
+            timestamp,
+            config.GIT_GUARDIAN_WEBHOOK_SIGNATURE,
+            JSON.stringify(req.body),
+        )
+    ) {
+        console.log('YOUPI, ça vient bien de GitGuardian');
+    } else {
+        console.log('WRONG TOKEN');
+    }
 }
