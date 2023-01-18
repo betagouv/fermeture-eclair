@@ -49,5 +49,6 @@ function buildController<bodyT>(
 }
 
 async function checkAuthentication(req: Request) {
+    console.log(req.headers);
     // Vérifie que la signature vient bien de GitGuardian
 }

@@ -12,7 +12,8 @@ router.get('/', (_: Request, res: Response) => {
 
 router.post(
     '/handle-incident',
-    buildController(async () => {
+    buildController(async (req: Request) => {
+        console.log(req.body);
         return githubHandler.closeRepository({
             owner: 'BenoitSerrano',
             repository: 'chronodose-finder',
