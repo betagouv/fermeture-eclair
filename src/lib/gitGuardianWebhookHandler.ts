@@ -21,9 +21,5 @@ function verifySignature(
     var hmac = createHmac('sha256', Buffer.from(timestamp + signatureToken, 'utf8'));
     hmac.update(payload);
     var result = hmac.digest('hex');
-    if (result === signatureActual) {
-        return true;
-    } else {
-        return false;
-    }
+    return result === signatureActual;
 }
