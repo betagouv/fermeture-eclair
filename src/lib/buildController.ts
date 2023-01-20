@@ -2,7 +2,7 @@ import { Request, Response } from 'express';
 import httpStatus from 'http-status';
 import Joi from 'joi';
 import { config } from '../config';
-import { signatureVerifier } from './signatureVerifier';
+import { gitGuardianWebhookHandler } from './gitGuardianWebhookHandler';
 
 export { buildController };
 
@@ -54,7 +54,7 @@ async function checkAuthentication(req: Request) {
     const signature = req.headers['gitguardian-signature'] as string;
     const timestamp = req.headers['timestamp'] as string;
     if (
-        signatureVerifier.check(
+        gitGuardianWebhookHandler.verifySignature(
             signature,
             timestamp,
             config.GIT_GUARDIAN_WEBHOOK_SIGNATURE,
