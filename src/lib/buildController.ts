@@ -8,22 +8,30 @@ export { buildController };
 
 export type { routeType };
 
+type authenticationType = 'gitGuardianSignature' | 'none';
+
 type routeType =
     | { kind: 'success'; data?: any }
     | { kind: 'error'; message: string; statusCode: number };
 
 function buildController<bodyT>(
     controller: (body: bodyT) => routeType | Promise<routeType>,
-    options?: { schema?: Joi.Schema },
+    options?: { schema?: Joi.Schema; authentication?: authenticationType },
 ) {
     return async (req: Request, res: Response) => {
-        try {
-            await checkAuthentication(req);
-        } catch (error) {
-            console.error(error);
-            res.sendStatus(httpStatus.UNAUTHORIZED);
-            return;
+        switch (options?.authentication) {
+            case 'gitGuardianSignature':
+                try {
+                    await checkAuthentication(req);
+                } catch (error) {
+                    console.error(error);
+                    res.sendStatus(httpStatus.UNAUTHORIZED);
+                    return;
+                }
+                break;
+            default:
         }
+
         if (options?.schema) {
             const { error } = options.schema.validate(req.body);
             if (error) {

@@ -16,21 +16,24 @@ router.get('/', (_: Request, res: Response) => {
 
 router.post(
     '/handle-incident',
-    buildController(async () => {
-        // Pour l'instant on le déclare, mais plus tard on l'extraiera de l'info du Git Guardian Web hook
-        const repositoryOwner = 'BenoitSerrano';
-        const repositoryName = 'chronodose-finder';
-        const dbGithubToken = await githubTokenService.getGithubToken({
-            repositoryOwner,
-            repositoryName,
-        });
+    buildController(
+        async () => {
+            // Pour l'instant on le déclare, mais plus tard on l'extraiera de l'info du Git Guardian Web hook
+            const repositoryOwner = 'BenoitSerrano';
+            const repositoryName = 'chronodose-finder';
+            const dbGithubToken = await githubTokenService.getGithubToken({
+                repositoryOwner,
+                repositoryName,
+            });
 
-        return githubHandler.closeRepository({
-            owner: dbGithubToken.repositoryOwner,
-            repository: dbGithubToken.repositoryName,
-            githubToken: dbGithubToken.encryptedToken,
-        });
-    }),
+            return githubHandler.closeRepository({
+                owner: dbGithubToken.repositoryOwner,
+                repository: dbGithubToken.repositoryName,
+                githubToken: dbGithubToken.encryptedToken,
+            });
+        },
+        { authentication: 'none' },
+    ),
 );
 
 router.post(
@@ -42,6 +45,7 @@ router.post(
             repositoryOwner: Joi.string().required(),
             expirationDate: Joi.string().regex(DATE_PATTERN).required(),
         }),
+        authentication: 'gitGuardianSignature',
     }),
 );
 
