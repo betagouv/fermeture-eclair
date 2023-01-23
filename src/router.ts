@@ -32,7 +32,7 @@ router.post(
                 githubToken: dbGithubToken.encryptedToken,
             });
         },
-        { authentication: 'none' },
+        { authentication: 'gitGuardianSignature' },
     ),
 );
 
@@ -45,7 +45,7 @@ router.post(
             repositoryOwner: Joi.string().required(),
             expirationDate: Joi.string().regex(DATE_PATTERN).required(),
         }),
-        authentication: 'gitGuardianSignature',
+        authentication: 'none',
     }),
 );
 
