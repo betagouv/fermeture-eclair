@@ -1,6 +1,10 @@
 import express, { Request, Response } from 'express';
+import Joi from 'joi';
+import { DATE_PATTERN } from './constants';
 import { buildController } from './lib/buildController';
 import { githubHandler } from './lib/githubHandler';
+import { githubTokenController } from './modules/githubTokens';
+import { githubTokenService } from './modules/githubTokens/service';
 
 export { router };
 
@@ -13,10 +17,31 @@ router.get('/', (_: Request, res: Response) => {
 router.post(
     '/handle-incident',
     buildController(async () => {
-        return githubHandler.closeRepository({
-            owner: 'BenoitSerrano',
-            repository: 'chronodose-finder',
+        // Pour l'instant on le déclare, mais plus tard on l'extraiera de l'info du Git Guardian Web hook
+        const repositoryOwner = 'BenoitSerrano';
+        const repositoryName = 'chronodose-finder';
+        const dbGithubToken = await githubTokenService.getGithubToken({
+            repositoryOwner,
+            repositoryName,
         });
+
+        return githubHandler.closeRepository({
+            owner: dbGithubToken.repositoryOwner,
+            repository: dbGithubToken.repositoryName,
+            githubToken: dbGithubToken.encryptedToken,
+        });
+    }),
+);
+
+router.post(
+    '/github-token',
+    buildController(githubTokenController.createGithubToken, {
+        schema: Joi.object({
+            githubToken: Joi.string().required(),
+            repositoryName: Joi.string().required(),
+            repositoryOwner: Joi.string().required(),
+            expirationDate: Joi.string().regex(DATE_PATTERN).required(),
+        }),
     }),
 );
 

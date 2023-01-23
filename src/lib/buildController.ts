@@ -9,7 +9,7 @@ export { buildController };
 export type { routeType };
 
 type routeType =
-    | { kind: 'success'; data: any }
+    | { kind: 'success'; data?: any }
     | { kind: 'error'; message: string; statusCode: number };
 
 function buildController<bodyT>(

@@ -1,3 +1,3 @@
-import {GitToken} from './gitTokens'
+import { GithubToken } from './githubTokens';
 
-export {GitToken}
+export { GithubToken };
