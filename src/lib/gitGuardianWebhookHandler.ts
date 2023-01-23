@@ -1,12 +1,17 @@
 import { createHmac } from 'crypto';
 
-export { signatureVerifier };
+export { gitGuardianWebhookHandler };
 
-const signatureVerifier = {
-    check,
+const gitGuardianWebhookHandler = {
+    verifySignature,
 };
 
-function check(signature: string, timestamp: string, signatureToken: string, payload: string) {
+function verifySignature(
+    signature: string,
+    timestamp: string,
+    signatureToken: string,
+    payload: string,
+) {
     const signatureHeader = signature.substring(0, 7);
     if (signatureHeader !== 'sha256=') {
         return false;
@@ -16,9 +21,5 @@ function check(signature: string, timestamp: string, signatureToken: string, pay
     var hmac = createHmac('sha256', Buffer.from(timestamp + signatureToken, 'utf8'));
     hmac.update(payload);
     var result = hmac.digest('hex');
-    if (result === signatureActual) {
-        return true;
-    } else {
-        return false;
-    }
+    return result === signatureActual;
 }

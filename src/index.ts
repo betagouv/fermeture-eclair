@@ -1,7 +1,15 @@
 import { buildApp } from './app';
 import { config } from './config';
+import { dataSource } from './dataSource';
 
 async function runApp() {
+    try {
+        await dataSource.initialize();
+        await dataSource.runMigrations();
+    } catch (error) {
+        console.error(error);
+    }
+
     const app = buildApp();
 
     app.listen(config.SERVER_PORT, () => {
