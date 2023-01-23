@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Button } from './components/Button';
 import { TextInput } from './components/TextInput';
+import { api } from './service/api';
 
 const INITIAL_ERRORS = { expirationDate: '' };
 
@@ -34,13 +35,14 @@ function App() {
     );
 
     function handleSubmit() {
-        console.log('TRUC');
         const DATE_PATTERN = /^2[0-9]{3}-[0,1][0-9]-[0-3][0-9]$/;
         if (!expirationDate.match(DATE_PATTERN)) {
             setErrors({ ...errors, expirationDate: 'Mauvais format' });
+            return;
         } else {
             setErrors(INITIAL_ERRORS);
         }
+        api.createGithubToken({ githubToken, expirationDate, repositoryName, repositoryOwner });
     }
 }
 
