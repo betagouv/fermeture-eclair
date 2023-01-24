@@ -19,7 +19,7 @@ function buildApp() {
 
     app.use(express.static(path.join(__dirname, '..', 'src', 'client', 'build')));
 
-    app.get('/front/*', (_, res: Response) => {
+    app.get('/', (_, res: Response) => {
         res.sendFile(path.join(__dirname, '..', 'src', 'client', 'build', 'index.html'));
     });
 
