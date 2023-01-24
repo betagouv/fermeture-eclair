@@ -1,8 +1,10 @@
+import { config } from '../config';
+
 const api = {
     createGithubToken,
 };
 
-const BASE_URL = `http://localhost:3001/api/`;
+const BASE_URL = `${config.API_URL}/api/`;
 
 function createGithubToken(body: {
     githubToken: string;
