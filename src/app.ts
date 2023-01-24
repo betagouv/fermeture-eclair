@@ -4,6 +4,7 @@ import cors from 'cors';
 import path from 'path';
 
 import { router } from './router';
+import { config } from './config';
 
 export { buildApp };
 
@@ -12,7 +13,9 @@ function buildApp() {
 
     app.use(bodyParser.json());
 
-    app.use(cors({ origin: 'http://localhost:3000' }));
+    if (config.ENV == 'local') {
+        app.use(cors({ origin: 'http://localhost:3000' }));
+    }
 
     app.use(express.static(path.join(__dirname, '..', 'client', 'build')));
 
