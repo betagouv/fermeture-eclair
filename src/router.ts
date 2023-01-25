@@ -17,7 +17,8 @@ router.get('/', (_: Request, res: Response) => {
 router.post(
     '/handle-incident',
     buildController(
-        async () => {
+        async (payload) => {
+            console.log(payload);
             // Pour l'instant on le déclare, mais plus tard on l'extraiera de l'info du Git Guardian Web hook
             const repositoryOwner = 'BenoitSerrano';
             const repositoryName = 'chronodose-finder';
