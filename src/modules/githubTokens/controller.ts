@@ -8,7 +8,6 @@ async function createGithubToken(githubTokenDto: {
     githubToken: string;
     repositoryName: string;
     repositoryOwner: string;
-    expirationDate: string;
 }): Promise<routeType> {
     try {
         const result = await githubTokenService.createGithubToken(githubTokenDto);

@@ -8,7 +8,6 @@ const BASE_URL = `${config.API_URL}/api/`;
 
 function createGithubToken(body: {
     githubToken: string;
-    expirationDate: string;
     repositoryName: string;
     repositoryOwner: string;
 }) {

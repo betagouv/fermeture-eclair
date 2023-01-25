@@ -32,12 +32,10 @@ async function createGithubToken({
     githubToken,
     repositoryName,
     repositoryOwner,
-    expirationDate,
 }: {
     githubToken: string;
     repositoryName: string;
     repositoryOwner: string;
-    expirationDate: string;
 }) {
     const githubTokenRepository = dataSource.getRepository(GithubToken);
 
@@ -47,7 +45,6 @@ async function createGithubToken({
         encryptedToken,
         repositoryName,
         repositoryOwner,
-        expirationDate,
     });
     return { kind: 'success' as const };
 }
