@@ -1,4 +1,5 @@
 import { dataSource } from '../../dataSource';
+import { rsa } from '../../lib/rsa';
 import { GithubToken } from './entity';
 
 export { githubTokenService };
@@ -38,10 +39,13 @@ async function createGithubToken({
 }) {
     const githubTokenRepository = dataSource.getRepository(GithubToken);
 
-    return githubTokenRepository.insert({
-        encryptedToken: githubToken,
+    const encryptedToken = rsa.encrypt(githubToken);
+
+    await githubTokenRepository.insert({
+        encryptedToken,
         repositoryName,
         repositoryOwner,
         expirationDate,
     });
+    return { kind: 'success' as const };
 }
