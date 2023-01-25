@@ -1,15 +1,13 @@
-# Git Guardian Webhook
+# 🔑 Fermeture éclair
 
-Ce projet contient pour le moment un seul webhook, appelé par GitGuardian lorsqu'un incident survient
+Fermeture éclair is designed to automatically close your repository whenever a [GitGuardian](https://www.gitguardian.com/) incident is triggered. It gives you more time to react appropriately to the leak.
 
-# Prérequis
+# Prerequisites
 
 -   npm v14
 -   node v16
 
-# Installation
-
-Cloner ce repo
+# Setup
 
 ```bash
 git clone https://github.com/betagouv/git-guardian-alert-handler.git
@@ -18,8 +16,16 @@ npm i
 cp .env.example .env
 ```
 
-# Lancer le projet localement
+# Run locally
+
+Run server:
 
 ```bash
-npm run startDev
+docker-compose up
+```
+
+Run client:
+
+```bash
+cd src/client && npm run start
 ```
