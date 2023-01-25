@@ -11,8 +11,8 @@ async function createGithubToken(githubTokenDto: {
     expirationDate: string;
 }): Promise<routeType> {
     try {
-        await githubTokenService.createGithubToken(githubTokenDto);
-        return { kind: 'success' };
+        const result = await githubTokenService.createGithubToken(githubTokenDto);
+        return result;
     } catch (error) {
         console.error(error);
         return {

@@ -42,7 +42,12 @@ function App() {
         } else {
             setErrors(INITIAL_ERRORS);
         }
-        api.createGithubToken({ githubToken, expirationDate, repositoryName, repositoryOwner });
+        api.createGithubToken({
+            githubToken,
+            expirationDate,
+            repositoryName,
+            repositoryOwner,
+        });
     }
 }
 
