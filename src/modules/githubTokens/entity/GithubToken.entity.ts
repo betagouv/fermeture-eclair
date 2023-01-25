@@ -13,7 +13,4 @@ export class GithubToken {
 
     @Column()
     repositoryName: string;
-
-    @Column({ type: 'date' })
-    expirationDate: Date;
 }

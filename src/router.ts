@@ -43,7 +43,6 @@ router.post(
             githubToken: Joi.string().required(),
             repositoryName: Joi.string().required(),
             repositoryOwner: Joi.string().required(),
-            expirationDate: Joi.string().regex(DATE_PATTERN).required(),
         }),
         authentication: 'none',
     }),
