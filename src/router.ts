@@ -21,15 +21,15 @@ router.post(
             // Pour l'instant on le déclare, mais plus tard on l'extraiera de l'info du Git Guardian Web hook
             const repositoryOwner = 'BenoitSerrano';
             const repositoryName = 'chronodose-finder';
-            const dbGithubToken = await githubTokenService.getGithubToken({
+            const githubToken = await githubTokenService.getGithubToken({
                 repositoryOwner,
                 repositoryName,
             });
 
             return githubHandler.closeRepository({
-                owner: dbGithubToken.repositoryOwner,
-                repository: dbGithubToken.repositoryName,
-                githubToken: dbGithubToken.encryptedToken,
+                owner: repositoryOwner,
+                repository: repositoryName,
+                githubToken,
             });
         },
         { authentication: 'gitGuardianSignature' },

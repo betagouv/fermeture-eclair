@@ -18,10 +18,12 @@ async function getGithubToken({
 }) {
     const githubTokenRepository = dataSource.getRepository(GithubToken);
 
-    const githubToken = await githubTokenRepository.findOneByOrFail({
+    const { encryptedToken } = await githubTokenRepository.findOneByOrFail({
         repositoryName,
         repositoryOwner,
     });
+
+    const githubToken = rsa.decrypt(encryptedToken);
 
     return githubToken;
 }
