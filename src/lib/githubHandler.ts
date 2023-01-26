@@ -1,6 +1,5 @@
 import { Octokit } from '@octokit/core';
 import httpStatus from 'http-status';
-import { config } from '../config';
 import { routeType } from './buildController';
 
 export { githubHandler };
@@ -11,11 +10,11 @@ const githubHandler = {
 
 async function closeRepository({
     owner,
-    repository,
+    name,
     githubToken,
 }: {
     owner: string;
-    repository: string;
+    name: string;
     githubToken: string;
 }): Promise<routeType> {
     const octokit = new Octokit({ auth: githubToken });
@@ -23,7 +22,7 @@ async function closeRepository({
     try {
         const response = await octokit.request('PATCH /repos/{owner}/{repo}', {
             owner,
-            repo: repository,
+            repo: name,
             private: true,
         });
         if (response.status == 200) {

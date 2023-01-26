@@ -1,14 +1,13 @@
 import { Request, Response } from 'express';
 import httpStatus from 'http-status';
 import Joi from 'joi';
-import { config } from '../config';
-import { gitGuardianWebhookHandler } from './gitGuardianWebhookHandler';
+import { alertHandler } from '../modules';
 
 export { buildController };
 
 export type { routeType };
 
-type authenticationType = 'gitGuardianSignature' | 'none';
+type authenticationType = 'signature' | 'none';
 
 type routeType =
     | { kind: 'success'; data?: any }
@@ -20,7 +19,7 @@ function buildController<bodyT>(
 ) {
     return async (req: Request, res: Response) => {
         switch (options?.authentication) {
-            case 'gitGuardianSignature':
+            case 'signature':
                 try {
                     await checkAuthentication(req);
                 } catch (error) {
@@ -59,16 +58,7 @@ function buildController<bodyT>(
 }
 
 async function checkAuthentication(req: Request) {
-    const signature = req.headers['gitguardian-signature'] as string;
-    const timestamp = req.headers['timestamp'] as string;
-    if (
-        gitGuardianWebhookHandler.verifySignature(
-            signature,
-            timestamp,
-            config.GIT_GUARDIAN_WEBHOOK_SIGNATURE,
-            JSON.stringify(req.body),
-        )
-    ) {
+    if (alertHandler.verifySignature(req, {})) {
         console.log('YOUPI, ça vient bien de GitGuardian');
     } else {
         console.log('WRONG TOKEN');

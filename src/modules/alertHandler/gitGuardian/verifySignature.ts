@@ -1,17 +1,8 @@
-import { createHmac } from 'crypto';
+import { Request } from 'express';
 
-export { gitGuardianWebhookHandler };
+export { verifySignature };
 
-const gitGuardianWebhookHandler = {
-    verifySignature,
-};
-
-function verifySignature(
-    signature: string,
-    timestamp: string,
-    signatureToken: string,
-    payload: string,
-) {
+function verifySignature(req: Request, body: any) {
     return true;
     // const signatureHeader = signature.substring(0, 7);
     // if (signatureHeader !== 'sha256=') {

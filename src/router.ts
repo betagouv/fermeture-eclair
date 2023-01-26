@@ -1,8 +1,8 @@
 import express, { Request, Response } from 'express';
 import Joi from 'joi';
-import { DATE_PATTERN } from './constants';
 import { buildController } from './lib/buildController';
 import { githubHandler } from './lib/githubHandler';
+import { alertPayloadType, alertHandler } from './modules';
 import { githubTokenController } from './modules/githubTokens';
 import { githubTokenService } from './modules/githubTokens/service';
 
@@ -17,23 +17,21 @@ router.get('/', (_: Request, res: Response) => {
 router.post(
     '/handle-incident',
     buildController(
-        async (payload) => {
-            console.log(payload);
-            // Pour l'instant on le déclare, mais plus tard on l'extraiera de l'info du Git Guardian Web hook
-            const repositoryOwner = 'BenoitSerrano';
-            const repositoryName = 'chronodose-finder';
+        async (payload: alertPayloadType) => {
+            const { owner, name } = alertHandler.extractRepositoryInfo(payload);
+
             const githubToken = await githubTokenService.getGithubToken({
-                repositoryOwner,
-                repositoryName,
+                repositoryOwner: owner,
+                repositoryName: name,
             });
 
             return githubHandler.closeRepository({
-                owner: repositoryOwner,
-                repository: repositoryName,
+                owner,
+                name,
                 githubToken,
             });
         },
-        { authentication: 'gitGuardianSignature' },
+        { authentication: 'signature' },
     ),
 );
 
