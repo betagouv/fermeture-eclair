@@ -1,8 +1,6 @@
-import { Request } from 'express';
-
 export { verifySignature };
 
-function verifySignature(req: Request, body: any) {
+function verifySignature(headers: Record<string, string>, body: Object): boolean {
     return true;
     // const signatureHeader = signature.substring(0, 7);
     // if (signatureHeader !== 'sha256=') {
