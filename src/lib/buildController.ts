@@ -1,34 +1,25 @@
 import { Request, Response } from 'express';
 import httpStatus from 'http-status';
 import Joi from 'joi';
-import { alertHandler } from '../modules';
 
 export { buildController };
 
-export type { routeType };
-
-type authenticationType = 'signature' | 'none';
-
-type routeType =
-    | { kind: 'success'; data?: any }
-    | { kind: 'error'; message: string; statusCode: number };
-
 function buildController<bodyT>(
     controller: (body: bodyT) => any,
-    options?: { schema?: Joi.Schema; authentication?: authenticationType },
+    options?: {
+        schema?: Joi.Schema;
+        checkAuthorization?: (headers: Record<string, string>, body: Object) => boolean;
+    },
 ) {
     return async (req: Request, res: Response) => {
-        switch (options?.authentication) {
-            case 'signature':
-                try {
-                    await checkAuthentication(req);
-                } catch (error) {
-                    console.error(error);
-                    res.sendStatus(httpStatus.UNAUTHORIZED);
-                    return;
-                }
-                break;
-            default:
+        if (options?.checkAuthorization) {
+            try {
+                await options.checkAuthorization(req.headers as any, req.body);
+            } catch (error) {
+                console.error(error);
+                res.sendStatus(httpStatus.UNAUTHORIZED);
+                return;
+            }
         }
 
         if (options?.schema) {
@@ -49,12 +40,4 @@ function buildController<bodyT>(
             res.sendStatus(httpStatus.INTERNAL_SERVER_ERROR);
         }
     };
-}
-
-async function checkAuthentication(req: Request) {
-    if (alertHandler.verifySignature(req, {})) {
-        console.log('YOUPI, ça vient bien de GitGuardian');
-    } else {
-        console.log('WRONG TOKEN');
-    }
 }

@@ -2,9 +2,9 @@ import express from 'express';
 import Joi from 'joi';
 import { githubTokenController } from './controllers';
 import { buildController } from './lib/buildController';
-import { githubHandler } from './lib/githubHandler';
-import { alertPayloadType, alertHandler } from './modules';
+import { alertHandlerUseCases, alertPayloadType } from './useCases/alertHandler';
 import { githubTokenUseCases } from './useCases/githubToken';
+import { githubRepositoryHandler } from './useCases/repositoryHandler';
 
 export { router };
 
@@ -14,20 +14,20 @@ router.post(
     '/handle-incident',
     buildController(
         async (payload: alertPayloadType) => {
-            const { owner, name } = alertHandler.extractRepositoryInfo(payload);
+            const { owner, name } = alertHandlerUseCases.extractRepositoryInfo(payload);
 
             const githubToken = await githubTokenUseCases.getGithubToken({
                 repositoryOwner: owner,
                 repositoryName: name,
             });
 
-            return githubHandler.closeRepository({
+            return githubRepositoryHandler.closeRepository({
                 owner,
                 name,
                 githubToken,
             });
         },
-        { authentication: 'signature' },
+        { checkAuthorization: alertHandlerUseCases.verifySignature },
     ),
 );
 
@@ -39,6 +39,5 @@ router.post(
             repositoryName: Joi.string().required(),
             repositoryOwner: Joi.string().required(),
         }),
-        authentication: 'none',
     }),
 );
