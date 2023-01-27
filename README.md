@@ -10,8 +10,8 @@ Fermeture éclair is designed to automatically close your repository whenever a 
 # Setup
 
 ```bash
-git clone https://github.com/betagouv/git-guardian-alert-handler.git
-cd git-guardian-alert-handler
+git clone https://github.com/betagouv/fermeture-eclair.git
+cd fermeture-eclair
 npm i
 cp .env.example .env
 ```
