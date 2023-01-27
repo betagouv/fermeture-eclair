@@ -1,7 +1,7 @@
 import 'reflect-metadata';
 import { DataSource } from 'typeorm';
 import { config } from './config';
-import { GithubToken } from './modules';
+import { GithubToken } from './models';
 
 export const dataSource = new DataSource({
     type: 'postgres',

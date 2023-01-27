@@ -1,5 +1,4 @@
-import { GithubToken } from './githubTokens';
 import { alertHandler, alertPayloadType } from './alertHandler';
 
-export { GithubToken, alertHandler };
+export { alertHandler };
 export type { alertPayloadType };

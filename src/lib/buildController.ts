@@ -14,7 +14,7 @@ type routeType =
     | { kind: 'error'; message: string; statusCode: number };
 
 function buildController<bodyT>(
-    controller: (body: bodyT) => routeType | Promise<routeType>,
+    controller: (body: bodyT) => any,
     options?: { schema?: Joi.Schema; authentication?: authenticationType },
 ) {
     return async (req: Request, res: Response) => {
@@ -41,15 +41,9 @@ function buildController<bodyT>(
 
         try {
             const result = await controller(req.body);
-            switch (result.kind) {
-                case 'success':
-                    res.send(result.data);
-                    return;
-                case 'error':
-                    res.status(result.statusCode);
-                    res.send(result.message);
-                    return;
-            }
+            res.set('Content-Type', 'application/json');
+            res.send(result);
+            return;
         } catch (error) {
             console.error(error);
             res.sendStatus(httpStatus.INTERNAL_SERVER_ERROR);
