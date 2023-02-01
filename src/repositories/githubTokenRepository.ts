@@ -6,7 +6,7 @@ export { buildGithubTokenRepository };
 function buildGithubTokenRepository(dataSource: DataSource) {
     const repository = dataSource.getRepository(GithubToken);
 
-    return { findOne, insertOne };
+    return { findAll, findOne, insertOne };
 
     async function insertOne(
         githubTokenDto: Pick<GithubToken, 'encryptedToken' | 'repositoryName' | 'repositoryOwner'>,
@@ -20,5 +20,10 @@ function buildGithubTokenRepository(dataSource: DataSource) {
     ) {
         const githubToken = await repository.findOneByOrFail(githubTokenDto);
         return githubToken;
+    }
+
+    async function findAll() {
+        const githubTokens = await repository.find();
+        return githubTokens;
     }
 }
