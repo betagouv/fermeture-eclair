@@ -2,9 +2,7 @@ import express from 'express';
 import Joi from 'joi';
 import { alertController, githubTokenController } from './controllers';
 import { buildController } from './lib/buildController';
-import { alertHandlerUseCases, alertPayloadType } from './useCases/alertHandler';
-import { githubTokenUseCases } from './useCases/githubToken';
-import { githubRepositoryHandler } from './useCases/repositoryHandler';
+import { alertHandlerUseCases } from './useCases/alertHandler';
 
 export { router };
 
@@ -16,6 +14,8 @@ router.post(
         checkAuthorization: alertHandlerUseCases.verifySignature,
     }),
 );
+
+router.get('/github-token', buildController(githubTokenController.fetchGithubTokens));
 
 router.post(
     '/github-token',

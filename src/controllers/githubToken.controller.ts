@@ -8,4 +8,5 @@ const githubTokenController = {
         repositoryName: string;
         repositoryOwner: string;
     }) => githubTokenUseCases.createGithubToken(githubDto),
+    fetchGithubTokens: () => githubTokenUseCases.getGithubTokens(),
 };
