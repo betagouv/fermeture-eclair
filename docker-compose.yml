@@ -24,9 +24,9 @@ services:
         volumes:
             - data:/data/db
         environment:
-            - POSTGRES_USER=postgres
-            - POSTGRES_PASSWORD=postgres
-            - POSTGRES_DB=fermeture-eclair
+            - POSTGRES_USER=${DATABASE_USER}
+            - POSTGRES_PASSWORD=${DATABASE_PASSWORD}
+            - POSTGRES_DB=${DATABASE_NAME}
             - POSTGRES_PORT=5432
 
 volumes:
