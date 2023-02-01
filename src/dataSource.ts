@@ -1,7 +1,7 @@
 import 'reflect-metadata';
 import { DataSource } from 'typeorm';
 import { config } from './config';
-import { GithubToken } from './models';
+import { Event, GithubToken } from './models';
 
 export const dataSource = new DataSource({
     type: 'postgres',
@@ -12,7 +12,7 @@ export const dataSource = new DataSource({
     database: config.DATABASE_NAME,
     synchronize: false,
     logging: false,
-    entities: [GithubToken],
+    entities: [GithubToken, Event],
     migrations: ['dist/migration/*'],
     subscribers: [],
 });

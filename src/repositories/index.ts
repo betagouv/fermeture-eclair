@@ -1,3 +1,4 @@
 import { buildGithubTokenRepository } from './githubTokenRepository';
+import { buildEventRepository } from './eventRepository';
 
-export { buildGithubTokenRepository };
+export { buildGithubTokenRepository, buildEventRepository };
