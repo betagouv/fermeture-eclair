@@ -31,6 +31,18 @@ function App() {
                     opensNewTab
                 />
             </InputContainer>
+            <div>
+                <ul>Mettre en token name le nom de la SE</ul>
+                <ul>Mettre en Expiration une durée d'un an</ul>
+                <ul>Sélectionner le Resource Owner</ul>
+                <ul>Cliquer sur "Only select repositories"</ul>
+                <ul>Sélectionner les repositories concernés</ul>
+                <ul>
+                    Dans Repositories permissions, ajouter "Administration" et sélectionner Read and
+                    write"
+                </ul>
+                <ul>Cliquer sur Generate token</ul>
+            </div>
             <TextInput
                 value={repositoryName}
                 onChange={setRepositoryName}
