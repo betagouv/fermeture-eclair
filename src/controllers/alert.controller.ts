@@ -9,7 +9,7 @@ const alertController = {
     handleAlert: async (payload: alertPayloadType) => {
         await eventUseCases.createEvent(payload);
 
-        if (alertHandlerUseCases.isAlertRelevant(payload)) {
+        if (!alertHandlerUseCases.isAlertRelevant(payload)) {
             return;
         }
 
