@@ -3,6 +3,7 @@ import { styled } from '@mui/material/styles';
 import { Button } from './components/Button';
 import { TextInput } from './components/TextInput';
 import { api } from './service/api';
+import { Link } from './components/Link';
 
 function App() {
     const [githubToken, setGithubToken] = useState('');
@@ -10,7 +11,18 @@ function App() {
     const [repositoryOwner, setRepositoryOwner] = useState('');
     return (
         <Container>
-            <TextInput value={githubToken} onChange={setGithubToken} placeholder="Token Github" />
+            <InputContainer>
+                <TextInput
+                    value={githubToken}
+                    onChange={setGithubToken}
+                    placeholder="Token Github"
+                />
+                <Link
+                    label="Créer un token"
+                    url="https://github.com/settings/personal-access-tokens/new"
+                    opensNewTab
+                />
+            </InputContainer>
             <TextInput
                 value={repositoryName}
                 onChange={setRepositoryName}
@@ -35,9 +47,15 @@ function App() {
 }
 
 const Container = styled('div')`
-    width: 25%;
+    width: 50%;
     display: flex;
     flex-direction: column;
+`;
+
+const InputContainer = styled('div')`
+    flex: 1;
+    display: flex;
+    justify-content: space-between;
 `;
 
 export default App;
