@@ -29,3 +29,7 @@ Run client:
 ```bash
 cd src/client && npm run start
 ```
+
+# Access prod
+
+The production server is accessible here : [Fermeture éclair](https://betagouv-gitguardian-alert-handler-prod.osc-fr1.scalingo.io/)
