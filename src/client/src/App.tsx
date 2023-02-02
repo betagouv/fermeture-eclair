@@ -5,10 +5,12 @@ import { TextInput } from './components/TextInput';
 import { api } from './service/api';
 import { Link } from './components/Link';
 
+const DEFAULT_REPOSITORY_OWNER = 'betagouv';
+
 function App() {
     const [githubToken, setGithubToken] = useState('');
     const [repositoryName, setRepositoryName] = useState('');
-    const [repositoryOwner, setRepositoryOwner] = useState('');
+    const [repositoryOwner, setRepositoryOwner] = useState(DEFAULT_REPOSITORY_OWNER);
     return (
         <Container>
             <InputContainer>
