@@ -9,6 +9,10 @@ const alertController = {
     handleAlert: async (payload: alertPayloadType) => {
         await eventUseCases.createEvent(payload);
 
+        if (alertHandlerUseCases.isAlertRelevant(payload)) {
+            return;
+        }
+
         const { owner, name } = alertHandlerUseCases.extractRepositoryInfo(payload);
 
         const githubToken = await githubTokenUseCases.getGithubToken({
