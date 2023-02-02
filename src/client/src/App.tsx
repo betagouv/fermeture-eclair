@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { styled } from '@mui/material/styles';
 import { Button } from './components/Button';
 import { TextInput } from './components/TextInput';
 import { api } from './service/api';
@@ -8,7 +9,7 @@ function App() {
     const [repositoryName, setRepositoryName] = useState('');
     const [repositoryOwner, setRepositoryOwner] = useState('');
     return (
-        <div>
+        <Container>
             <TextInput value={githubToken} onChange={setGithubToken} placeholder="Token Github" />
             <TextInput
                 value={repositoryName}
@@ -21,7 +22,7 @@ function App() {
                 placeholder="Propriétaire du dépôt"
             />
             <Button label="Créer token" onClick={handleSubmit} />
-        </div>
+        </Container>
     );
 
     function handleSubmit() {
@@ -32,5 +33,11 @@ function App() {
         });
     }
 }
+
+const Container = styled('div')`
+    width: 25%;
+    display: flex;
+    flex-direction: column;
+`;
 
 export default App;
