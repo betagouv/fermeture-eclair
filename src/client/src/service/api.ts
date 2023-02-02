@@ -6,17 +6,18 @@ const api = {
 
 const BASE_URL = `${config.API_URL}/api/`;
 
-function createGithubToken(body: {
+async function createGithubToken(body: {
     githubToken: string;
     repositoryName: string;
     repositoryOwner: string;
 }) {
     const URL = `${BASE_URL}github-token`;
-    fetch(URL, {
+    const response = await fetch(URL, {
         method: 'POST',
         body: JSON.stringify(body),
         headers: { 'Content-type': 'application/json' },
     });
+    return response;
 }
 
 export { api };
