@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
 import { styled } from '@mui/material/styles';
-import { Button } from './components/Button';
-import { TextInput } from './components/TextInput';
-import { api } from './service/api';
-import { Link } from './components/Link';
-import { Toaster } from './components/Toaster';
+import { Button } from '../components/Button';
+import { TextInput } from '../components/TextInput';
+import { api } from '../service/api';
+import { Link } from '../components/Link';
+import { Toaster } from '../components/Toaster';
 
 const DEFAULT_REPOSITORY_OWNER = 'betagouv';
 
-function App() {
+function AddToken() {
     const [toaster, setToaster] = React.useState({
         variant: 'success' as 'success' | 'error',
         text: '',
@@ -92,4 +92,4 @@ const InputContainer = styled('div')`
     justify-content: space-between;
 `;
 
-export default App;
+export { AddToken };
