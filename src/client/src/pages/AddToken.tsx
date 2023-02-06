@@ -38,8 +38,8 @@ function AddToken() {
                 <ul>Cliquer sur "Only select repositories"</ul>
                 <ul>Sélectionner les repositories concernés</ul>
                 <ul>
-                    Dans Repositories permissions, ajouter "Administration" et sélectionner Read and
-                    write"
+                    Dans Repositories permissions, ajouter "Administration" et sélectionner "Read
+                    and write"
                 </ul>
                 <ul>Cliquer sur Generate token</ul>
             </div>
