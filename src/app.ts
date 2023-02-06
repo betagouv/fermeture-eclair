@@ -17,13 +17,13 @@ function buildApp() {
         app.use(cors({ origin: 'http://localhost:3000' }));
     }
 
+    app.use('/api', router);
+
     app.use(express.static(path.join(__dirname, '..', 'src', 'client', 'build')));
 
-    app.get('/', (_, res: Response) => {
+    app.get('*', (_, res: Response) => {
         res.sendFile(path.join(__dirname, '..', 'src', 'client', 'build', 'index.html'));
     });
-
-    app.use('/api', router);
 
     return app;
 }
