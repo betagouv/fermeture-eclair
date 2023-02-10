@@ -22,7 +22,7 @@ function buildController<bodyT>(
                 return;
             }
         }
-        const body = req.body ? JSON.parse(req.body) : {};
+        const body = req.body;
 
         if (options?.schema) {
             const { error } = options.schema.validate(body);
