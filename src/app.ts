@@ -11,11 +11,11 @@ export { buildApp };
 function buildApp() {
     const app: Express = express();
 
-    app.use(bodyParser.json());
-
     if (config.ENV == 'local') {
         app.use(cors({ origin: 'http://localhost:3000' }));
     }
+
+    app.use(bodyParser.text({ type: '*/*' }));
 
     app.use('/api', router);
 
