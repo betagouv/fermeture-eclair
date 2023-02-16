@@ -8,22 +8,24 @@ function buildController<bodyT>(
     controller: (body: bodyT) => any,
     options?: {
         schema?: Joi.Schema;
-        checkAuthorization?: (headers: Record<string, string>, body: Object) => boolean;
+        checkAuthorization?: (headers: Record<string, string>, body: string) => boolean;
     },
 ) {
     return async (req: Request, res: Response) => {
         if (options?.checkAuthorization) {
-            try {
-                await options.checkAuthorization(req.headers as any, req.body);
-            } catch (error) {
-                console.error(error);
+            console.log(req.body);
+            const isSignatureValid = options.checkAuthorization(req.headers as any, req.body);
+            console.log(isSignatureValid);
+            if (!isSignatureValid) {
+                console.error(`The signature of the payload is not valid.`);
                 res.sendStatus(httpStatus.UNAUTHORIZED);
                 return;
             }
         }
+        const body = req.body;
 
         if (options?.schema) {
-            const { error } = options.schema.validate(req.body);
+            const { error } = options.schema.validate(body);
             if (error) {
                 res.status(httpStatus.BAD_REQUEST).send(error.message);
                 return;
@@ -31,7 +33,7 @@ function buildController<bodyT>(
         }
 
         try {
-            const result = await controller(req.body);
+            const result = await controller(body);
             res.set('Content-Type', 'application/json');
             res.send(result);
             return;
