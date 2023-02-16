@@ -1,7 +1,7 @@
 import { describe, it, expect } from '@jest/globals';
 import { buildVerifySignature } from './verifySignature.useCase';
 
-describe('isAlertRelevant', () => {
+describe('verifySignature', () => {
     const verifySignature = buildVerifySignature('foo');
     it('returns true for valid signature', () => {
         const headers = {
