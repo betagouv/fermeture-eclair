@@ -19,6 +19,7 @@ function buildVerifySignature(signatureToken: string) {
         var hmac = createHmac('sha256', Buffer.from(timestamp + signatureToken, 'utf8'));
         hmac.update(payload);
         var result = hmac.digest('hex');
+        console.log(result === signatureActual ? 'The signature is OK' : 'The signature is wrong');
         return result === signatureActual;
     }
 }
