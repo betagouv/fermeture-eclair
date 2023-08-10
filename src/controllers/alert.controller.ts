@@ -17,6 +17,8 @@ const alertController = {
             return;
         }
 
+        await signalUseCase.alertOnMattermost(payload);
+
         const { owner, name } = alertHandlerUseCases.extractRepositoryInfo(payload);
 
         const githubToken = await githubTokenUseCases.getGithubToken({
@@ -32,6 +34,5 @@ const alertController = {
         await eventUseCases.createEvent(
             alertHandlerUseCases.computeAlertMessage('repository-closed', payload),
         );
-        await signalUseCase.alertOnMattermost(payload);
     },
 };
