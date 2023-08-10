@@ -15,6 +15,7 @@ services:
             - DATABASE_PASSWORD=${DATABASE_PASSWORD}
             - DATABASE_NAME=${DATABASE_NAME}
             - DATABASE_HOST=db
+            - MATTERMOST_HOOK_ID=${MATTERMOST_HOOK_ID}
         depends_on:
             - db
     db:

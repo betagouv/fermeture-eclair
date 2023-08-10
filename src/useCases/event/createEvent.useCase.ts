@@ -8,7 +8,7 @@ function buildCreateEvent(dataSource: DataSource) {
 
     return createEvent;
 
-    async function createEvent(payload: any) {
-        return eventRepository.insertOne(JSON.stringify(payload));
+    async function createEvent(payload: string) {
+        return eventRepository.insertOne(payload);
     }
 }

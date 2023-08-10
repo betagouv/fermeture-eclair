@@ -5,6 +5,7 @@ type alertPayloadType = {
         };
     };
     occurrence: {
+        author_info: string;
         source: {
             url: string;
         };
