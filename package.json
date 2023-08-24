@@ -4,7 +4,7 @@
     "description": "",
     "main": "index.js",
     "scripts": {
-        "buildServer": "rm -rf dist && tsc",
+        "buildServer": "tsc",
         "build": "npm run buildServer && cd src/client && npm i && npm run build",
         "lint:fix": "eslint --fix",
         "migration:generate": "npm run buildServer && typeorm migration:generate -d dist/dataSource.js src/migration/$npm_config_name",
