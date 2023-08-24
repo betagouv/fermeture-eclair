@@ -8,7 +8,7 @@ describe('isAlertRelevant', () => {
                 author_info: 'test@test.fr',
                 source: { url: 'https://github.com/tchapgouv/tchap-android/commit/d4ebefbab' },
             },
-            incident: { detector: { name: 'generic_password' } },
+            incident: { detector: { name: 'generic_password' }, gitguardian_url: 'url' },
         };
 
         expect(isAlertRelevant(payload)).toBe(false);
