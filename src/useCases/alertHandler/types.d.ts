@@ -6,8 +6,10 @@ type alertPayloadType = {
         gitguardian_url: string;
     };
     occurrence: {
+        url: string;
         author_info: string;
         source: {
+            fullname: string;
             url: string;
         };
     };
