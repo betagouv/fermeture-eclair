@@ -14,7 +14,7 @@ async function alertOnMattermost(payload: alertPayloadType) {
     await axios.post(url, { text: text1 });
 
     const text2 = `
-    # 🚨 GitGuardian alert on "${payload.occurrence.source.fullname}"\n
+    # 🚨 GitGuardian alert on "${payload.occurrence.source.full_name}"\n
     - 🦉 GitGuardian URL: ${payload.incident.gitguardian_url}\n
     - 🐱 Github commit URL: ${payload.occurrence.source.url}\n
     - 👩‍💻 developer's email adress: ${payload.occurrence.author_info}\n

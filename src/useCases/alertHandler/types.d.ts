@@ -9,7 +9,7 @@ type alertPayloadType = {
         url: string;
         author_info: string;
         source: {
-            fullname: string;
+            full_name: string;
             url: string;
         };
     };
