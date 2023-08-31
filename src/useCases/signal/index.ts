@@ -19,7 +19,7 @@ async function alertOnMattermost(payload: alertPayloadType) {
         payload.incident.gitguardian_url +
         '\n' +
         '- 🐱 Github commit URL: ' +
-        payload.occurrence.source.url +
+        payload.occurrence.url +
         '\n' +
         "- 👩‍💻 developer's email adress: " +
         payload.occurrence.author_info +
