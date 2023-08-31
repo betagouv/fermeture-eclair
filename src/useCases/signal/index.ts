@@ -6,7 +6,7 @@ const signalUseCase = { alertOnMattermost };
 
 const MATTERMOST_BASE_URL = `https://mattermost.incubateur.net/hooks/`;
 
-const usernamesToPing = ['anna-liva', 'julien.dauphant', 'ishan', 'florian', 'benoit.serrano'];
+const usernamesToPing = ['anna-livia', 'julien.dauphant', 'ishan', 'florian', 'benoit.serrano'];
 
 async function alertOnMattermost(payload: alertPayloadType) {
     const url = MATTERMOST_BASE_URL + config.MATTERMOST_HOOK_ID;
