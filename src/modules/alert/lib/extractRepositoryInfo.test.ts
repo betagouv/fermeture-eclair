@@ -1,5 +1,5 @@
 import { describe, it, expect } from '@jest/globals';
-import { extractRepositoryInfo } from './extractRepositoryInfo.useCase';
+import { extractRepositoryInfo } from './extractRepositoryInfo';
 
 describe('extractRepositoryInfo', () => {
     it('extracts the right repository info', () => {

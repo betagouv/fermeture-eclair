@@ -1,27 +1,33 @@
 import express from 'express';
 import Joi from 'joi';
-import { alertController, eventController, githubTokenController } from './controllers';
 import { buildController } from './lib/buildController';
-import { alertHandlerUseCases } from './useCases/alertHandler';
+import { dataSource } from './dataSource';
+import { buildEventController } from './modules/event';
+import { buildGithubTokenController } from './modules/githubToken';
+import { alertHandler, buildAlertController } from './modules/alert';
 
 export { router };
 
 const router = express.Router();
 
+const alertController = buildAlertController(dataSource);
+const eventController = buildEventController(dataSource);
+const githubTokenController = buildGithubTokenController(dataSource);
+
 router.post(
     '/alert',
     buildController(alertController.handleAlert, {
-        checkAuthorization: alertHandlerUseCases.verifySignature,
+        checkAuthorization: alertHandler.verifySignature,
     }),
 );
 
-router.get('/events', buildController(eventController.getEvents));
+router.get('/events', buildController(eventController.getAllEvents));
 
-router.get('/github-token', buildController(githubTokenController.fetchGithubTokens));
+router.get('/github-token', buildController(githubTokenController.fetchAll));
 
 router.post(
     '/github-token',
-    buildController(githubTokenController.createGithubToken, {
+    buildController(githubTokenController.createOne, {
         schema: Joi.object({
             githubToken: Joi.string().required(),
             repositoryName: Joi.string().required(),

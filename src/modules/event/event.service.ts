@@ -1,9 +1,9 @@
 import { DataSource } from 'typeorm';
-import { Event } from '../models';
+import { Event } from './Event.entity';
 
-export { buildEventRepository };
+export { buildEventService };
 
-function buildEventRepository(dataSource: DataSource) {
+function buildEventService(dataSource: DataSource) {
     const repository = dataSource.getRepository(Event);
 
     return { insertOne, getAll };

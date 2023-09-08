@@ -1,5 +1,5 @@
 import { describe, it, expect } from '@jest/globals';
-import { isAlertRelevant } from './isAlertRelevant.useCase';
+import { isAlertRelevant } from './isAlertRelevant';
 
 describe('isAlertRelevant', () => {
     it('returns false for generic password', () => {

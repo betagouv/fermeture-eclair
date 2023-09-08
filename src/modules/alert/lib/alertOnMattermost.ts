@@ -1,8 +1,6 @@
 import axios from 'axios';
-import { config } from '../../config';
-import { alertPayloadType } from '../alertHandler';
-
-const signalUseCase = { alertOnMattermost };
+import { config } from '../../../config';
+import { alertPayloadType } from './types';
 
 const MATTERMOST_BASE_URL = `https://mattermost.incubateur.net/hooks/`;
 
@@ -29,4 +27,4 @@ async function alertOnMattermost(payload: alertPayloadType) {
     return axios.post(url, { text: text });
 }
 
-export { signalUseCase };
+export { alertOnMattermost };
