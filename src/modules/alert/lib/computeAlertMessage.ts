@@ -5,7 +5,13 @@ type eventKindType = 'alert-received' | 'repository-closed';
 function computeAlertMessage(eventKind: eventKindType, alertPayload: alertPayloadType) {
     switch (eventKind) {
         case 'alert-received':
-            return `Une nouvelle alerte a été levée sur le dépôt ${alertPayload.occurrence.source.url}.`;
+            const prefix = `Alerte (${alertPayload.action})`;
+            switch (alertPayload.action) {
+                case 'new_occurrence':
+                    return `${prefix} sur le dépôt ${alertPayload.occurrence.source.url} : `;
+                default:
+                    return prefix;
+            }
         case 'repository-closed':
             return `Le repository ${alertPayload.occurrence.source.url} a été fermé.`;
     }
