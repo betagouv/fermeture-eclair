@@ -3,6 +3,7 @@ import { DataSource } from 'typeorm';
 import { config } from './config';
 import { Event } from './modules/event';
 import { GithubToken } from './modules/githubToken';
+import { Incident } from './modules/incident';
 
 export const dataSource = new DataSource({
     type: 'postgres',
@@ -13,7 +14,7 @@ export const dataSource = new DataSource({
     database: config.DATABASE_NAME,
     synchronize: false,
     logging: false,
-    entities: [GithubToken, Event],
+    entities: [GithubToken, Event, Incident],
     migrations: ['dist/migration/*'],
     subscribers: [],
 });

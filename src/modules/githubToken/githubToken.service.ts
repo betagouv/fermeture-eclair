@@ -49,15 +49,17 @@ function buildGithubTokenService(dataSource: DataSource) {
     async function findOne(
         githubTokenDto: Pick<GithubToken, 'repositoryName' | 'repositoryOwner'>,
     ) {
-        const { encryptedToken } = await repository.findOneOrFail({
+        const githubToken = await repository.findOne({
             where: {
                 repositoryName: githubTokenDto.repositoryName,
                 repositoryOwner: githubTokenDto.repositoryOwner,
             },
         });
 
-        const githubToken = rsa.decrypt(encryptedToken);
+        if (!githubToken) {
+            return undefined;
+        }
 
-        return githubToken;
+        return rsa.decrypt(githubToken.encryptedToken);
     }
 }

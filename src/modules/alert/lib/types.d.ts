@@ -16,6 +16,7 @@ type alertPayloadType = {
         | 'incident_unshared_publicly'
         | 'incident_note_created';
     incident: {
+        id: number;
         detector: {
             name: string;
         };

@@ -9,6 +9,7 @@ function buildEventService(dataSource: DataSource) {
     return { insertOne, getAll };
 
     async function insertOne(payload: string): Promise<boolean> {
+        console.log(payload);
         const result = await repository.insert({ payload });
         return result.identifiers.length == 1;
     }
