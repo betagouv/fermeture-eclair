@@ -8,7 +8,7 @@ function isAlertRelevant(alertPayload: alertPayloadType): boolean {
     }
     try {
         const isDetectorIgnored = IGNORED_DETECTOR_NAMES.includes(
-            alertPayload.incident.detector.name,
+            alertPayload.incident.detector?.name,
         );
         return !isDetectorIgnored;
     } catch (error) {
